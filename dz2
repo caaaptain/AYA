@@ -1,0 +1,447 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+class watertech       // подводная техника
+{
+private:
+	char name[32], investments[16], information[512];
+
+public:
+	watertech()
+	{}
+	void set()
+	{
+		cout << "Введите страну-заказчика подводной техники техники : ";
+		cin >> name;
+		cout << "Введите нол-во инвестиций : ";
+		cin >> investments;
+		cout << "Что собирается преобрести страна-заказчик? [Введите небольшую информацию] : ";
+		cin >> information;
+	}
+	void info()
+	{
+		cout << name << endl << investments << endl << information  << endl;
+	}
+	void write()
+	{
+		ofstream f1("info.txt", ios_base::app);
+		f1 << name << endl << investments << endl << information  << endl;
+	}
+	~watertech()
+	{}
+};
+
+class groundequ      // наземная техника 
+{
+private:
+	char name[32], investments[16], information[512];
+	int dleft, dpass;
+public:
+	groundequ()
+	{}
+	void set()
+	{
+		cout << "Введите страну-заказчика наземной техники : ";
+		cin >> name;
+		cout << "Введите нол-во инвестиций : ";
+		cin >> investments;
+		cout << "Что собирается преобрести страна-заказчик? [Введите небольшую информацию] : ";
+		cin >> information;
+	}
+	void info()
+	{
+		cout << name << endl << investments << endl << information  << endl;
+	}
+	void write()
+	{
+		ofstream f1("info.txt", ios_base::app);
+		f1 << name << endl << investments << endl << information <<  endl;
+	}
+	~groundequ()
+	{}
+};
+
+class flyeq   // летательная техника
+{
+private:
+	char name[32], investments[16], information[512];
+	int dleft, dpass;
+public:
+	flyeq()
+	{}
+	void set()
+	{
+		cout << "Введите страну-заказчика летательной техники : ";
+		cin >> name;
+		cout << "Введите кол-во инвестиций : ";
+		cin >> investments;
+		cout << "Что собирается преобрести страна-заказчик? [Введите небольшую информацию] :  ";
+		cin >> information;
+	}
+	void info()
+	{
+		cout << name << endl << investments << endl << information << endl;
+	}
+	void write()
+	{
+		ofstream f1("info.txt", ios_base::app);
+		f1 << name << endl << investments << endl << information <<  endl;
+	}
+	~flyeq()
+	{}
+};
+
+class techunit       //техника                                           [2]
+{
+private:
+	char name[32];
+	watertech  * hmi;
+	groundequ  * s;
+	flyeq  * c;
+	int nhmi, nconscripts, ncontractors;
+public:
+	techunit()
+	{}
+	void set()
+	{
+		int vibor, i1;
+		this->info();
+		cout << "Установить новые данные" << endl;
+		cin >> name;
+		cout << "Летательная / наземная / подводная техника." << endl;
+		cin >> vibor;
+		cout << "Введите номер военной техники ";
+		cin >> i1;
+		switch (vibor)
+		{
+		case 1:
+		{
+				  this->c[i1].info();
+				  cout << "Установить новые данные" << endl;
+				  this->c[i1].set(); break;
+		}
+		case 2:
+		{
+				  this->s[i1].info();
+				  cout << "Установить новые данные" << endl;
+				  this->s[i1].set(); break;
+		}
+		case 3:
+		{
+				  this->hmi[i1].info();
+				  cout << "Установить новые данные" << endl;
+				  this->hmi[i1].set(); break;
+		}
+		}
+	}
+	void setnew()
+	{
+		char doornot;
+		cout << "Введите должность : ";
+		cin >> name;
+		cout << "Введите кол-во покупателей летательной техники : ";
+		cin >> this->ncontractors;
+		cout << "Введите кол-во покупателей наземной техники : ";
+		cin >> this->nconscripts;
+		cout << "Введите кол-во покупателей подводной техники : ";
+		cin >> this->nhmi;
+		hmi = new watertech[nhmi];
+		s = new groundequ[nconscripts];
+		c = new flyeq[ncontractors];
+		cout << "Вы хотите записать информацию о заказчиках сейчас? Введите 'у'" << endl;
+		cin >> doornot;
+		if (doornot == 'y')
+		{
+			for (int i = 0; i < ncontractors; i++)
+			{
+				this->c[i].set();
+			}
+			for (int i = 0; i < nconscripts; i++)
+			{
+				this->s[i].set();
+			}
+			for (int i = 0; i < nhmi; i++)
+			{
+				this->hmi[i].set();
+			}
+		}
+	}
+	void info()
+	{
+		cout << "Кол-во покупателей подводной техники : " << nhmi << endl;
+		cout << "Кол-во покупателей наземной техники :  " << nconscripts << endl;
+		cout << "Кол-во покупателей летательной техники : " << ncontractors << endl;
+	}
+	void fullinfo()
+	{
+		this->info();
+		for (int i = 0; i < nhmi; i++)
+		{
+			this->hmi[i].info();
+		}
+		for (int i = 0; i < nhmi; i++)
+		{
+			this->s[i].info();
+		}
+		for (int i = 0; i < nhmi; i++)
+		{
+			this->c[i].info();
+		}
+	}
+	void write()
+	{
+		ofstream f1("info.txt", ios_base::app);
+		f1 << "Кол-во покупателей подводной техники : " << nhmi << endl;
+		f1 << "Кол-во покупателей наземной техники :  " << nconscripts << endl;
+		f1 << "Кол-во покупателей летательной техники : " << ncontractors << endl;
+		for (int i = 0; i < nhmi; i++)
+		{
+			this->hmi[i].write();
+		}
+		for (int i = 0; i < nhmi; i++)
+		{
+			this->s[i].write();
+		}
+		for (int i = 0; i < nhmi; i++)
+		{
+			this->c[i].write();
+		}
+	}
+	~techunit()
+	{
+		this->hmi->~watertech();
+		this->s->~groundequ();
+		this->c->~flyeq();
+	}
+};
+
+class wbase      // база военных                                           [3]
+{
+private:
+	char name[32];
+	techunit * munit;
+	int number;
+public:
+	wbase()
+	{}
+	void set(int i2)
+	{
+		this->info();
+		cout << "Внести новые данные : " << endl;
+		cin >> name;
+		this->munit[i2].set();
+	}
+	void setnew()
+	{
+		int nmunit;
+		cout << "Введите название базы : ";
+		cin >> name;
+		cout << "Введите кол-во военного состава : ";
+		cin >> nmunit;
+		munit = new techunit[nmunit];
+		number = nmunit;
+		int n1;
+		cout << "Введите номер человека военного состава : ";
+		cin >> n1;
+		this->munit[n1].setnew();
+
+	}
+	void info()
+	{
+		cout << "Кол-во военной техники :  " << number << endl;
+	}
+	void fullinfo()
+	{
+		this->info();
+		for (int i = 0; i < number; i++)
+		{
+			this->munit[i].fullinfo();
+		}
+	}
+	void write()
+	{
+		ofstream f1("info.txt", ios_base::app);
+		f1 << "Кол-во военной техники :  " << number << endl;
+		for (int i = 0; i < number; i++)
+		{
+			this->munit[i].write();
+		}
+	}
+	~wbase()
+	{
+		this->munit->~techunit();
+	}
+};
+
+class Region                                                              // [4]
+{
+private:
+	char name[32];
+	wbase * base;
+	int number;
+public:
+	Region()
+	{}
+	void set(int i3)
+	{
+		this->info();
+		cout << "Установить новые данные" << endl;
+		cin >> name;
+		int i2;
+		cout << "Введите номер  " << i3 << endl;
+		cin >> i2;
+		this->base[i3].set(i2);
+	}
+	void setnew()
+	{
+		int nbase;
+		cout << "Введите название региона : ";
+		cin >> name;
+		cout << "Введите кол-во баз :  ";
+		cin >> nbase;
+		base = new wbase[nbase];
+		number = nbase;
+		int n2;
+		cout << "Выберите номер базы :  ";
+		cin >> n2;
+		this->base[n2].setnew();
+	}
+	void info()
+	{
+		cout << "Кол-во баз :  " << number << endl;
+	}
+	void fullinfo()
+	{
+		this->info();
+		for (int i = 0; i < number; i++)
+		{
+			this->base[i].fullinfo();
+		}
+	}
+	void write()
+	{
+		ofstream f1("info.txt", ios_base::app);
+		f1 << "Кол-во баз : " << number << endl;
+		for (int i = 0; i < number; i++)
+		{
+			this->base[i].write();
+		}
+	}
+	~Region()
+	{
+		this->base->~wbase();
+	}
+};
+
+class GC        // General Class                                          [5]
+{
+private:
+	Region * region;
+	int number = 0;
+public:
+	GC()
+	{}
+	
+	void set(int i4)
+	{
+		setlocale(LC_ALL, "rus");
+		int i3;
+		cout << "Введите номер базы в регионе :  " << i4 << endl;
+		cin >> i3;
+		this->region[i4].set(i3);
+	}
+	void setnew()
+	{
+		setlocale(LC_ALL, "rus");
+		int nregion;
+		cout << "Введите кол-во регионов : ";
+		cin >> nregion;
+		region = new Region[nregion];
+		number = nregion;
+		int n3;
+		cout << "Введите номер региона : ";
+		cin >> n3;
+		this->region[n3].setnew();
+	}
+	void info()
+	{
+		cout << "Военный состав : " << number << endl;
+	}
+	void fullinfo()
+	{
+		cout << "Военный состав : " << number << endl;
+		for (int i = 0; i < number; i++)
+		{
+			this->region[i].fullinfo();
+		}
+	}
+	void write()
+	{
+		ofstream f1("info.txt", ios_base::app);
+		f1 << "Номер региона " << number << endl;;
+		for (int i = 0; i < number; i++)
+		{
+			this->region[i].write();
+		}
+	}
+	void read()
+	{}
+	~GC()
+	{
+		this->region->~Region();
+	}
+};
+
+int main()
+{
+	setlocale(LC_ALL, "rus");
+	ofstream f1("info.txt", ios_base::out);
+	GC * kek;
+	kek = new GC();
+	char count,count_;
+	cout << "_______________________________ \n \n Выберите действие : \n " << endl << "i - Полная информация." << endl << "c - Изменение данных." << endl << "n - Внести новые данные." << endl;
+	cout << "w - Записать в файл." << endl << "r - Считать с файла." << endl << "e - Выход." << endl;
+	for (int unlimited = 0; unlimited < 999; unlimited++)
+	{
+		cout << "_______________________________ \n \n Выберите следующее действие." << endl;
+		cin >> count;
+		switch (count)
+		{
+		case 'i':
+		{
+					kek[0].fullinfo(); break;
+		}
+		case 'c':
+		{
+					int i4;
+					cout << "Введите номер этого региона : ";
+					cin >> i4;
+					kek[0].set(i4); break;
+		}
+		case 'n':
+		{
+					kek[0].setnew(); break;
+		}
+		case 'w':
+		{
+					kek[0].write(); break;
+		}
+		case 'r':
+		{
+					kek[0].read(); break;
+		}
+		case 'e':
+		{
+					goto exit;
+		}
+		}
+	}
+exit:
+	f1.close();
+	system("pause");
+	return 0;
+}
+
+
+
