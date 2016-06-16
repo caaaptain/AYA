@@ -1,0 +1,103 @@
+#include <iostream>
+
+class bool_
+{
+private:
+	bool s[32];
+
+public:
+
+	bool_()
+	{};
+
+	bool_(int n)
+	{
+		for (int i = 0; i < n; i++)
+		{
+			std::cout << "\nvariable #" << i << " = ";
+			std::cin >> s[i];
+		}
+	}
+	void change_(bool &a, bool &b)
+	{
+		bool c;
+		c = a;
+		a = b;
+		b = c;
+	}
+
+	void copy_(bool &a, bool &b)
+	{
+		a = b;
+	}
+
+	bool union_(bool &a, bool &b)
+	{
+		if (a == 1 || b == 1)
+			return 1;
+		else
+			return 0;
+	}
+
+	bool confluence_(bool &a, bool &b)
+	{
+		if (a == 1 && b == 1)
+			return 1;
+		else
+			return 0;
+	}
+
+	void inversion_(bool &a)
+	{
+		if (a == 1)
+		{
+			a = 0;
+		}
+		else
+		{
+			a = 1;
+		}
+	}
+
+	bool modulesum_(bool &a, bool &b)
+	{
+		if (a == 0 && b == 1 || a == 1 && b == 0)
+		{
+			return 1;
+		}
+		else 
+			return 0;
+	}
+	
+	void print_(bool &a)
+	{
+		std::cout << a << std::endl;
+	}
+
+	bool Pierce_arrow(bool &a, bool &b)
+	{
+		if (a == 0 && b == 0)
+			return 1;
+		else
+			return 0;
+	}
+
+	bool Sheffer_stroke(bool &a, bool &b)
+	{
+		if (a == 1 && b == 1)
+			return 0;
+		else
+			return 1;
+	}
+	
+	bool equivalence(bool &a, bool &b)
+	{ 
+		if (a == 1 && b == 1 || a == 0 && b == 0)
+		return 1;
+	else
+		return 0; 
+	}
+
+	~bool_();
+};
+
