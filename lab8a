@@ -1,0 +1,120 @@
+#include <iostream>
+#include <thread>
+#include <fstream>
+#include <string>
+
+void SumMod2(int &s, int N)
+{
+	for (std::size_t i = 0; i <= N; i += 2)
+		s += i;
+}
+
+void SumNoMod2(int &s, int N)
+{
+	for (std::size_t i = 1; i <= N; i += 2)
+		s += i;
+}
+
+
+void Factorial(int &F)
+{
+	int secret = F;
+	for (int i = 1; i < secret; i++) 
+		F = F * i;
+}
+
+void Matrix(int **pA, int** pB, int **pC, int m, int i, int j) 
+{
+	pC[i][j] = 0;
+	for (int k = 0; k < m; k++)
+		pC[i][j] += pA[i][k] * pB[k][j];
+}
+
+int main()
+{   //1
+	int s = 0;
+	std::cout << "Enter N : ";
+	int N;
+	std::cin >> N;
+	std::thread sum_1(SumNoMod2, std::ref(s), N);
+	std::thread sum_2(SumMod2, std::ref(s), N);
+	sum_1.join();
+	sum_2.join();
+	std::cout << "Summa = " << s << std::endl;
+
+	//2
+	int F = 1;
+	std::cout << "Enter F : ";
+	std::cin >> F;
+	std::thread f1(Factorial, std::ref(F));
+	f1.join();
+	std::cout << "Factorial(F) = " << F << std::endl;
+	
+	//3
+	int n = 0, k = 0;
+	long C;
+	std::cout << "Enter n : ";
+	std::cin >> n;
+	std::cout << "Enter k : ";
+	std::cin >> k;
+	int d = n - k;
+	std::thread N1(Factorial, std::ref(n));
+	std::thread K(Factorial, std::ref(k));
+	std::thread D(Factorial, std::ref(d));
+	N1.join();
+	K.join();
+	D.join();
+	C = n / (k * d);
+	std::cout << "C(n,k) = " << C << std::endl;
+
+	//4
+	int **pA, **pB, **pC;
+	int z = 4, m = 4, l = 4;
+	pA = new int *[z];
+	pB = new int *[m];
+	pC = new int *[z];
+	std::cout << "A:" << std::endl;
+	for (int i = 0; i < z; i++)
+	{
+		pA[i] = new int[m];
+		for (int j = 0; j < m; j++)
+			std::cout << (pA[i][j] = rand() % 10) << " ";
+		std::cout << std::endl;
+		pC[i] = new int[l];
+	}
+	std::cout << "B:" << std::endl;
+	for (int i = 0; i < m; i++)
+	{
+		pB[i] = new int[l];
+		for (int j = 0; j < l; j++)
+			std::cout << (pB[i][j] = rand() % 10) << " ";
+		std::cout << std::endl;
+	}
+	std::thread ***pT = new std::thread **[z];
+	for (int i = 0; i < z; i++) 
+	{
+		pT[i] = new std::thread *[l]; // Создаем массив указателей на потоки
+		for (int j = 0; j < l; j++)
+		{
+			pT[i][j] = new std::thread(Matrix, pA, pB, pC, m, i, j); // Создаем поток для умножения i-й строки на j-й столбец
+		}
+	}
+	for (int i = 0; i < z; i++) 
+	{
+		for (int j = 0; j < l; j++)
+		{
+			pT[i][j]->join(); delete pT[i][j]; // Ожидаем завершения потоки и удаляем объект
+		}
+	}
+	std::cout << "C:" << std::endl;
+	for (int i = 0; i < z; i++)
+	{
+		for (int j = 0; j < l; j++)
+			std::cout << pC[i][j] << " ";
+		std::cout << std::endl;
+
+	}
+	system("pause");
+	return 0;
+}
+
