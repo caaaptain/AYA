@@ -1,0 +1,68 @@
+#include <windows.h>
+#include <iostream>
+
+class Color
+{
+private:
+	int R, G, B;
+public:
+	Color()
+	{}
+	~Color()
+	{}
+};
+
+class Circle
+{
+private:
+	int x1, size, angle, aspeed, speed;
+	bool direction;
+	Color color;
+
+public:
+	Circle()
+	{}
+
+	~Circle()
+	{}
+};
+
+class Rhombus
+{
+	private:
+	int x1, size, angle, aspeed, speed;
+	bool direction;
+	Color color;
+
+public:
+	Rhombus()
+	{}
+
+	~Rhombus()
+	{}
+};
+
+class Parallelogram
+{
+	private:
+	int x1, size, angle, aspeed, speed;
+	bool direction;
+	Color color;
+
+public:
+	Parallelogram()
+	{}
+
+	~Parallelogram()
+	{}
+};
+
+int WINAPI WinMain(HINSTANCE hInstance, 
+                   HINSTANCE hPrevInstance, 
+                   LPSTR lpCmdLine, 
+                   int nCmdShow) 
+{
+        MessageBox(NULL, L"Привет, мир!!!", L"Оконная процедура", MB_OK);
+        return NULL;
+}
+
