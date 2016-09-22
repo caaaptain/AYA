@@ -1,0 +1,4 @@
+/Users/alex/Desktop/build/CMakeFiles/edit_cache.dir
+/Users/alex/Desktop/build/CMakeFiles/rebuild_cache.dir
+/Users/alex/Desktop/build/CMakeFiles/lib.dir
+/Users/alex/Desktop/build/CMakeFiles/main.dir
