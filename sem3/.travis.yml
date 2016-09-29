@@ -26,11 +26,6 @@ matrix:
     - os: osx
       compiler: clang-3.8
       env: COMPILER=clang++ -std=c++11
-
-  script:
-  - cd $TRAVIS_BUILD_DIR
-  # build the target. This will call haxe with the HXFLAGS and HXFLAGS_EXTRA environment variables
-  - HXFLAGS="-cp src -main test.TestAll" ~/travis-hx/build.sh
-  # run the tests
-  - ~/travis-hx/runtests.sh $FILENAME # this will set the $FILENAME defined on the environment variable to run the tests
-
+script:
+  - mkdir build && cd build
+  - cmake .. && make
