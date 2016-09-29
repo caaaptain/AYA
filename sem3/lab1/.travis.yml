@@ -1,4 +1,4 @@
-language: generic
+language: generic 
 matrix:
   include:
     - os: linux
@@ -29,4 +29,4 @@ matrix:
 
 script:
   - mkdir build && cd build
-  - cmake .. && make}
+  - cmake .. && make
